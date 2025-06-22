@@ -12,138 +12,185 @@
     </head>
 
     <body class="font-nunito bg-purple-50">
-        <div class="sections-container">
-            <div class="section-nav">
-                <div class="nav-dot active" data-section="0"></div>
-                <div class="nav-dot" data-section="1"></div>
-                <div class="nav-dot" data-section="2"></div>
-                <div class="nav-dot" data-section="3"></div>
+        <div class="card-container">
+            <button
+                class="reset-btn absolute top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/80 text-purple-700 font-bold px-4 py-2 rounded shadow-md border border-purple-200 hover:bg-purple-100 transition">Reset</button>
+            <div class="card">
+                <div class="card-front">
+                    <span class="corner-flair tl"></span>
+                    <span class="corner-flair tr"></span>
+                    <span class="corner-flair bl"></span>
+                    <span class="corner-flair br"></span>
+                    <div class="card-border"></div>
+                    <div class="decoration">🎂</div>
+                    <h1>Happy Birthday<br>Jessica!</h1>
+                    <div class="subtitle">A day to celebrate you, your light, and all the joy you bring!</div>
+                    <p class="text-xl">Click to open your card ✨</p>
+                </div>
+                <div class="card-back">
+                    <div class="card-page active" data-page="1">
+                        <div class="card-gallery w-full flex flex-col items-center justify-center">
+                            <div
+                                class="scrapbook-polaroids w-full pt-10 flex flex-wrap justify-center items-center gap-6">
+                                <div class="polaroid-photo scrapbook">
+                                    <div class="polaroid-image bg-gray-200"><img src="1.jpg" alt=""></div>
+                                    <p class="text-center mt-2">💝</p>
+                                </div>
+                                <div class="polaroid-photo scrapbook">
+                                    <div class="polaroid-image bg-gray-200"><img src="2.jpg" alt=""></div>
+                                    <p class="text-center mt-2">❤️</p>
+                                </div>
+                                <div class="polaroid-photo scrapbook">
+                                    <div class="polaroid-image bg-gray-200"><img src="3.jpg" alt=""></div>
+                                    <p class="text-center mt-2">🩺</p>
+                                </div>
+                                <div class="polaroid-photo scrapbook">
+                                    <div class="polaroid-image bg-gray-200"><img src="4.jpg" alt=""></div>
+                                    <p class="text-center mt-2">💫</p>
+                                </div>
+                                <div class="polaroid-photo scrapbook">
+                                    <div class="polaroid-image bg-gray-200"><img src="5.jpg" alt=""></div>
+                                    <p class="text-center mt-2">🎈</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-page" data-page="2">
+                        <div class="card-left">
+                            <div class="cake-container">
+                                <div class="cake-layer-1">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-right">
+                            <div class="message-container">
+                                <h2 class="text-4xl font-bold text-purple-600 mb-4">To My Dearest Jessica,</h2>
+                                <p class="text-xl text-gray-700">You are the heartbeat of my world, the gentle light
+                                    that brightens every day. Your kindness, laughter, and love make life a beautiful
+                                    adventure. I am endlessly grateful for you. 💜</p>
+                                <div
+                                    class="bible-verse mt-6 p-4 bg-purple-100 rounded shadow-sm text-purple-800 italic text-base">
+                                    "Love is patient, love is kind. It does not envy, it does not boast, it is not
+                                    proud. It does not dishonor others, it is not self-seeking, it is not easily
+                                    angered, it keeps no record of wrongs. Love does not delight in evil but rejoices
+                                    with the truth. It always protects, always trusts, always hopes, always
+                                    perseveres."<br>
+                                    <span class="block text-right font-semibold mt-2">— 1 Corinthians 13:4-7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-page" data-page="3">
+                        <div class="card-left">
+                            <div class="cake-container">
+                                <div class="cake-layer-2">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                                <div class="cake-layer-1">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-right">
+                            <div class="message-container">
+                                <h2 class="text-4xl font-bold text-purple-600 mb-4">27 Years of Magic</h2>
+                                <p class="text-xl text-gray-700">Every moment with you is a treasure. Your smile is my
+                                    favorite sunrise, your hugs my safest place. Thank you for filling my life with
+                                    warmth, hope, and endless inspiration. ✨</p>
+                                <div
+                                    class="bible-verse mt-6 p-4 bg-purple-100 rounded shadow-sm text-purple-800 italic text-base">
+                                    "You make known to me the path of life; you will fill me with joy in your presence,
+                                    with eternal pleasures at your right hand."<br>
+                                    <span class="block text-right font-semibold mt-2">— Psalm 16:11</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-page" data-page="4">
+                        <div class="card-left">
+                            <div class="cake-container">
+                                <div class="cake-layer-3">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                                <div class="cake-layer-2">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                                <div class="cake-layer-1">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-right">
+                            <div class="message-container">
+                                <h2 class="text-4xl font-bold text-purple-600 mb-4">You Are My Everything</h2>
+                                <p class="text-xl text-gray-700">Your compassion heals, your laughter uplifts, and your
+                                    dreams inspire. I am so proud of the incredible woman you are. Here’s to more
+                                    adventures, more love, and more memories together! 🌹</p>
+                                <div
+                                    class="bible-verse mt-6 p-4 bg-purple-100 rounded shadow-sm text-purple-800 italic text-base">
+                                    "She is clothed with strength and dignity; she can laugh at the days to come."<br>
+                                    <span class="block text-right font-semibold mt-2">— Proverbs 31:25</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-page" data-page="5">
+                        <div class="card-left">
+                            <div class="cake-container">
+                                <div class="cake-candle">27</div>
+                                <div class="cake-layer-3">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                                <div class="cake-layer-2">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                                <div class="cake-layer-1">
+                                    <div class="frosting"></div>
+                                    <div class="sprinkles"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-right">
+                            <div class="message-container text-center">
+                                <h1 class="text-6xl font-bold text-purple-600 mb-6">Happy Birthday, My Love! 🎉</h1>
+                                <p class="text-2xl text-gray-700">May your year be filled with laughter, wonder, and all
+                                    the happiness your heart can hold. I love you more than words can say. Here’s to
+                                    you, to us, and to a lifetime of beautiful birthdays together! 💝</p>
+                                <div
+                                    class="bible-verse mt-8 p-4 bg-purple-100 rounded shadow-sm text-purple-800 italic text-lg">
+                                    "The Lord bless you and keep you; the Lord make his face shine on you and be
+                                    gracious to you; the Lord turn his face toward you and give you peace."<br>
+                                    <span class="block text-right font-semibold mt-2">— Numbers 6:24-26</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-indicators absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-40">
+                        <button
+                            class="page-btn prev-page bg-white/80 border border-purple-200 text-purple-700 rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-purple-100 transition"
+                            aria-label="Previous page">&#8592;</button>
+                        <div class="dots flex gap-1"></div>
+                        <button
+                            class="page-btn next-page bg-white/80 border border-purple-200 text-purple-700 rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-purple-100 transition"
+                            aria-label="Next page">&#8594;</button>
+                    </div>
+                </div>
             </div>
-            <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-sm">
-                <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                    <div class="text-3xl font-bold text-purple-600">27</div>
-                </div>
-            </nav>
-
-            <div class="photo-gallery w-full pt-20">
-                <div class="fairy-lights"></div>
-                <div class="photos-container">
-                    <!-- Placeholder Polaroid Images -->
-                    <div class="polaroid-photo">
-                        <div class="polaroid-image bg-gray-200">
-                            <img src="1.jpg" alt="" srcset="">
-                        </div>
-                        <p class="text-center mt-2">💝</p>
-                        <div class="pin"></div>
-                    </div>
-                    <div class="polaroid-photo">
-                        <div class="polaroid-image bg-gray-200">
-                            <img src="2.jpg" alt="" srcset="">
-                        </div>
-                        <p class="text-center mt-2">❤️</p>
-                        <div class="pin"></div>
-                    </div>
-                    <div class="polaroid-photo">
-                        <div class="polaroid-image bg-gray-200">
-                            <img src="3.jpg" alt="" srcset="">
-                        </div>
-                        <p class="text-center mt-2">🩺</p>
-                        <div class="pin"></div>
-                    </div>
-                    <div class="polaroid-photo">
-                        <div class="polaroid-image bg-gray-200">
-                            <img src="4.jpg" alt="" srcset="">
-                        </div>
-                        <p class="text-center mt-2">💫</p>
-                        <div class="pin"></div>
-                    </div>
-                    <div class="polaroid-photo">
-                        <div class="polaroid-image bg-gray-200">
-                            <img src="5.jpg" alt="" srcset="">
-                        </div>
-                        <p class="text-center mt-2">🎈</p>
-                        <div class="pin"></div>
-                    </div>
-                </div>
-            </div>
-
-            <section id="section1" class="min-h-screen flex items-center justify-center relative">
-                <div class="cake-container">
-                    <div class="cake-layer-1">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                </div>
-                <div class="message-container">
-                    <h2 class="text-4xl font-bold text-purple-600 mb-4">Dear Jessica,</h2>
-                    <p class="text-xl text-gray-700">Your healing touch makes the world a better place...
-                        💖</p>
-                </div>
-            </section>
-
-            <section id="section2" class="min-h-screen flex items-center justify-center relative">
-                <div class="cake-container">
-                    <div class="cake-layer-2">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                    <div class="cake-layer-1">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                </div>
-                <div class="message-container">
-                    <h2 class="text-4xl font-bold text-purple-600 mb-4">27 Years Young!</h2>
-                    <p class="text-xl text-gray-700">Your smile lights up every room... ✨</p>
-                </div>
-            </section>
-
-            <section id="section3" class="min-h-screen flex items-center justify-center relative">
-                <div class="cake-container">
-                    <div class="cake-layer-3">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                    <div class="cake-layer-2">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                    <div class="cake-layer-1">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                </div>
-                <div class="message-container">
-                    <h2 class="text-4xl font-bold text-purple-600 mb-4">Beautiful Soul</h2>
-                    <p class="text-xl text-gray-700">Your compassion knows no bounds... 🌹</p>
-                </div>
-            </section>
-
-            <section id="section4" class="min-h-screen flex items-center justify-center relative">
-                <div class="cake-container">
-                    <div class="cake-candle">27</div>
-                    <div class="cake-layer-3">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                    <div class="cake-layer-2">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                    <div class="cake-layer-1">
-                        <div class="frosting"></div>
-                        <div class="sprinkles"></div>
-                    </div>
-                </div>
-                <div class="message-container text-center">
-                    <h1 class="text-6xl font-bold text-purple-600 mb-6">Happy Birthday Jessica! 🎉</h1>
-                    <p class="text-2xl text-gray-700">May your special day be filled with love, joy, and
-                        endless blessings! 💝</p>
-                </div>
-            </section>
-
-            <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-            <script src="script.js"></script>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+        <script src="script.js"></script>
     </body>
 
 </html>

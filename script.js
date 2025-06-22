@@ -1,77 +1,146 @@
 // Initialize the page
 document.documentElement.classList.remove("dark");
 
-// Set up Intersection Observer for cake containers
-const sections = document.querySelectorAll("section");
-const cakeContainers = document.querySelectorAll(".cake-container");
-let activeSection = 0;
+// Card interaction variables
+const card = document.querySelector(".card");
+const cardPages = document.querySelectorAll(".card-page");
+const nextBtn = document.querySelector(".next-page");
+const prevBtn = document.querySelector(".prev-page");
+const resetBtn = document.querySelector(".reset-btn");
+const dotsContainer = document.querySelector(".dots");
+let currentPage = 1;
+let isCardOpened = false;
+const totalPages = cardPages.length;
 
-const cakeObserver = new IntersectionObserver(
-	(entries) => {
-		entries.forEach((entry) => {
-			const container = entry.target;
-			const section = container.closest("section");
-			const containerIndex = Array.from(cakeContainers).indexOf(container);
-
-			if (entry.isIntersecting) {
-				container.classList.add("visible");
-				activeSection = containerIndex;
-				updateNavDots();
-
-				// Add layers based on container index
-				if (containerIndex >= 1) {
-					container.classList.add("show-layer-2");
-				}
-				if (containerIndex >= 2) {
-					container.classList.add("show-layer-3");
-				}
-				if (containerIndex === 3) {
-					container.classList.add("show-candle");
-					createConfetti();
-				}
-			} else {
-				// Remove classes when container exits viewport
-				container.classList.remove("visible");
-				if (containerIndex >= 1) {
-					container.classList.remove("show-layer-2");
-				}
-				if (containerIndex >= 2) {
-					container.classList.remove("show-layer-3");
-				}
-				if (containerIndex === 3) {
-					container.classList.remove("show-candle");
-				}
-			}
+// Dots
+function updateDots() {
+	dotsContainer.innerHTML = "";
+	for (let i = 1; i <= totalPages; i++) {
+		const dot = document.createElement("div");
+		dot.className = "dot" + (i === currentPage ? " active" : "");
+		dot.addEventListener("click", (e) => {
+			e.stopPropagation();
+			goToPage(i);
 		});
-	},
-	{
-		threshold: 0.3,
+		dotsContainer.appendChild(dot);
 	}
-);
-
-// Observe all cake containers
-cakeContainers.forEach((container) => {
-	cakeObserver.observe(container);
-});
-
-// Navigation dots functionality
-function updateNavDots() {
-	const dots = document.querySelectorAll(".nav-dot");
-	dots.forEach((dot, index) => {
-		if (index === activeSection) {
-			dot.classList.add("active");
-		} else {
-			dot.classList.remove("active");
-		}
-	});
 }
 
-// Add click handlers for navigation dots
-document.querySelectorAll(".nav-dot").forEach((dot, index) => {
-	dot.addEventListener("click", () => {
-		sections[index].scrollIntoView({ behavior: "smooth" });
+function goToPage(page) {
+	if (page < 1 || page > totalPages) return;
+	cardPages.forEach((p, idx) => {
+		p.classList.remove("active");
+		p.classList.remove("show-layer");
+		p.classList.remove("show-layer-2");
+		p.classList.remove("show-layer-3");
+		p.classList.remove("show-candle");
 	});
+	const current = cardPages[page - 1];
+	current.classList.add("active");
+	// Add .show-layer for entry animation
+	setTimeout(() => {
+		current.classList.add("show-layer");
+		if (page === 3) current.classList.add("show-layer-2");
+		if (page === 4) current.classList.add("show-layer-3");
+		if (page === 5) current.classList.add("show-candle");
+	}, 10);
+	currentPage = page;
+	updateDots();
+	// Only trigger confetti if arriving on the last page and it wasn't already the last page
+	if (currentPage === totalPages && !goToPage._confettiFired) {
+		createConfetti();
+		goToPage._confettiFired = true;
+	} else if (currentPage !== totalPages) {
+		goToPage._confettiFired = false;
+	}
+}
+
+// Handle card opening and page turning
+card.addEventListener("click", (e) => {
+	// Prevent click on nav buttons/dots/reset from flipping
+	if (e.target.closest(".page-btn") || e.target.closest(".dot") || e.target.closest(".reset-btn")) return;
+	if (!isCardOpened) {
+		card.classList.add("opened");
+		isCardOpened = true;
+		goToPage(1);
+		return;
+	}
+	// Only advance if not on last page
+	if (currentPage < totalPages) goToPage(currentPage + 1);
 });
+
+// Next/Prev
+nextBtn.addEventListener("click", (e) => {
+	e.stopPropagation();
+	if (currentPage < totalPages) goToPage(currentPage + 1);
+});
+prevBtn.addEventListener("click", (e) => {
+	e.stopPropagation();
+	if (currentPage > 1) goToPage(currentPage - 1);
+});
+
+// Reset
+resetBtn.addEventListener("click", (e) => {
+	e.stopPropagation();
+	card.classList.remove("opened");
+	isCardOpened = false;
+	goToPage(1);
+});
+
+// Mobile: flip from top to bottom
+function handleMobileFlip() {
+	if (window.innerWidth <= 768) {
+		card.classList.remove("opened");
+		card.classList.remove("opened-y");
+		card.classList.add("opened-x");
+	} else {
+		card.classList.remove("opened-x");
+	}
+}
+window.addEventListener("resize", handleMobileFlip);
+handleMobileFlip();
+
+// Initialize polaroid animations
+const polaroids = document.querySelectorAll(".polaroid-photo");
+polaroids.forEach((photo, index) => {
+	const delay = Math.random() * 2;
+	const angle = index % 2 === 0 ? -3 : 3;
+	photo.style.setProperty("--photo-delay", delay);
+	photo.style.setProperty("--string-angle", angle);
+
+	// Add subtle random rotation
+	const baseRotation = angle + (Math.random() * 2 - 1);
+	photo.style.transform = `rotate(${baseRotation}deg)`;
+});
+
+// Create floating balloons
+function createBalloons() {
+	const colors = ["#FF69B4", "#FF1493", "#FFB6C1", "#FFC0CB"];
+	const balloonContainer = document.createElement("div");
+	document.body.appendChild(balloonContainer);
+
+	for (let i = 0; i < 10; i++) {
+		const balloon = document.createElement("div");
+		balloon.className = "balloon";
+		balloon.innerHTML = "🎈";
+		balloon.style.left = `${Math.random() * 100}vw`;
+		balloon.style.animationDelay = `${Math.random() * 15}s`;
+		balloon.style.fontSize = `${Math.random() * 20 + 20}px`;
+		balloonContainer.appendChild(balloon);
+	}
+}
+
+// Initialize balloons
+createBalloons();
+
+// Navigation dots
+const navDots = document.querySelectorAll(".nav-dot");
+
+function updateNavDots() {
+	navDots.forEach((dot, index) => {
+		dot.classList.toggle("active", index === activeSection);
+	});
+}
 
 // Confetti effect
 function createConfetti() {
@@ -126,48 +195,6 @@ function createConfetti() {
 			})
 		);
 	}, 250);
-}
-
-// Create floating balloons
-function createBalloons() {
-	const colors = ["#FF69B4", "#FF1493", "#FFB6C1", "#FFC0CB"];
-	const balloonContainer = document.createElement("div");
-	document.body.appendChild(balloonContainer);
-
-	for (let i = 0; i < 10; i++) {
-		const balloon = document.createElement("div");
-		balloon.className = "balloon";
-		balloon.innerHTML = "🎈";
-		balloon.style.left = `${Math.random() * 100}vw`;
-		balloon.style.animationDelay = `${Math.random() * 15}s`;
-		balloon.style.fontSize = `${Math.random() * 20 + 20}px`;
-		balloonContainer.appendChild(balloon);
-	}
-}
-
-// Initialize polaroid animations
-const polaroids = document.querySelectorAll(".polaroid-photo");
-polaroids.forEach((photo, index) => {
-	const delay = Math.random() * 2;
-	const angle = index % 2 === 0 ? -3 : 3;
-	photo.style.setProperty("--photo-delay", delay);
-	photo.style.setProperty("--string-angle", angle);
-
-	// Add subtle random rotation
-	const baseRotation = angle + (Math.random() * 2 - 1);
-	photo.style.transform = `rotate(${baseRotation}deg)`;
-});
-
-// Initialize balloons
-createBalloons();
-
-// Navigation dots
-const navDots = document.querySelectorAll(".nav-dot");
-
-function updateNavDots() {
-	navDots.forEach((dot, index) => {
-		dot.classList.toggle("active", index === activeSection);
-	});
 }
 
 // Trigger confetti on initial load for section 4

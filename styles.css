@@ -1,0 +1,492 @@
+/* Base styles */
+:root {
+	--cake-primary: #9f7aea;
+	--cake-secondary: #805ad5;
+	--cake-accent: #6b46c1;
+	--cake-light: #e9d8fd;
+	--cake-dark: #553c9a;
+	--cake-primary-rgb: 159, 122, 234;
+}
+
+.font-nunito {
+	font-family: "Nunito", sans-serif;
+}
+
+/* Body Background */
+body {
+	min-height: 100vh;
+	background: linear-gradient(135deg, var(--cake-light) 0%, transparent 100%), linear-gradient(45deg, transparent 0%, rgba(var(--cake-primary-rgb), 0.1) 100%), var(--cake-light);
+	overflow-x: hidden;
+}
+
+/* Polaroid Gallery */
+.photo-gallery {
+	position: relative;
+	overflow: hidden;
+	min-height: 300px;
+	background: linear-gradient(to right, rgba(var(--cake-primary-rgb, 159, 122, 234), 0.05) 1px, transparent 1px) 0 0, linear-gradient(to bottom, rgba(var(--cake-primary-rgb, 159, 122, 234), 0.05) 1px, transparent 1px) 0 0;
+	background-size: 20px 20px;
+}
+
+.fairy-lights {
+	height: 20px;
+	background-image: radial-gradient(circle at 10px 10px, var(--cake-accent) 3px, transparent 4px), linear-gradient(90deg, var(--cake-secondary), var(--cake-secondary));
+	background-size: 40px 20px, 100% 2px;
+	background-position: 0 0, 0 10px;
+	background-repeat: repeat-x;
+	filter: drop-shadow(0 0 5px var(--cake-accent));
+	animation: twinkle 1s infinite alternate;
+}
+
+.photos-container {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	gap: 20px;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.polaroid-photo {
+	background: linear-gradient(135deg, white, #faf5ff);
+	padding: 15px 15px 30px 15px;
+	box-shadow: 0 4px 15px rgba(var(--cake-primary-rgb), 0.15), 0 0 0 1px rgba(var(--cake-primary-rgb), 0.1);
+	transform: rotate(-3deg);
+	transition: all 0.3s ease;
+	position: relative;
+	margin-top: 40px;
+	width: 220px;
+	animation: swing 4s ease-in-out infinite;
+	animation-delay: calc(var(--photo-delay, 0) * 1s);
+}
+
+.polaroid-photo::before {
+	content: "";
+	position: absolute;
+	top: -40px;
+	left: 50%;
+	width: 2px;
+	height: 40px;
+	background: var(--cake-secondary);
+	transform-origin: 50% 100%;
+	transform: rotate(calc(var(--string-angle, -3) * 1deg));
+	animation: stringMove 4s ease-in-out infinite;
+	animation-delay: calc(var(--photo-delay, 0) * 1s);
+}
+
+.polaroid-image {
+	width: 100%;
+	height: 200px;
+	background-size: cover;
+	background-position: center;
+}
+
+.polaroid-image > img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
+.pin {
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	background: radial-gradient(circle at 40% 40%, var(--cake-accent) 30%, var(--cake-secondary) 100%);
+	border-radius: 50%;
+	top: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.polaroid-photo:nth-child(even) {
+	transform: rotate(3deg);
+	animation: swing-even 4s ease-in-out infinite;
+	animation-delay: calc((var(--photo-delay, 0) + 0.5) * 1s);
+}
+
+.polaroid-photo p {
+	color: var(--cake-dark);
+	text-shadow: 1px 1px 0 var(--cake-light);
+}
+
+.polaroid-photo:hover {
+	transform: scale(1.05) rotate(0);
+	z-index: 2;
+	box-shadow: 0 8px 25px rgba(var(--cake-primary-rgb), 0.2), 0 0 0 1px rgba(var(--cake-primary-rgb), 0.15);
+}
+
+.polaroid-photo:hover::before {
+	background: var(--cake-accent);
+	box-shadow: 0 0 10px var(--cake-accent);
+}
+
+@keyframes swing {
+	0% {
+		transform: rotate(-3deg);
+	}
+	25% {
+		transform: rotate(-2deg) translateY(-5px);
+	}
+	50% {
+		transform: rotate(-2.5deg) translateY(0);
+	}
+	75% {
+		transform: rotate(-3deg) translateY(-3px);
+	}
+	100% {
+		transform: rotate(-2deg) translateY(0);
+	}
+}
+
+.polaroid-photo:nth-child(even) {
+	animation-name: swing-even;
+}
+
+@keyframes swing-even {
+	0% {
+		transform: rotate(3deg);
+	}
+	25% {
+		transform: rotate(2deg) translateY(-5px);
+	}
+	50% {
+		transform: rotate(2.5deg) translateY(0);
+	}
+	75% {
+		transform: rotate(3deg) translateY(-3px);
+	}
+	100% {
+		transform: rotate(2deg) translateY(0);
+	}
+}
+
+@keyframes twinkle {
+	0% {
+		opacity: 0.7;
+		filter: drop-shadow(0 0 5px var(--cake-accent));
+	}
+	100% {
+		opacity: 1;
+		filter: drop-shadow(0 0 8px var(--cake-accent));
+	}
+}
+
+/* Cake Layers */
+.cake-container {
+	position: relative;
+	height: 400px;
+	width: 400px;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	transition: transform 0.5s ease;
+}
+
+.cake-layer-1,
+.cake-layer-2,
+.cake-layer-3 {
+	position: absolute;
+	height: 80px;
+	background: linear-gradient(to right, var(--cake-primary), var(--cake-secondary));
+	border-radius: 8px;
+	transition: transform 0.5s ease;
+	overflow: hidden;
+}
+
+.cake-layer-1::before,
+.cake-layer-2::before,
+.cake-layer-3::before {
+	content: "";
+	position: absolute;
+	top: 5px;
+	left: 0;
+	right: 0;
+	height: 20px;
+	background: radial-gradient(circle at 10px 10px, var(--cake-light) 2px, transparent 3px);
+	background-size: 20px 20px;
+	background-repeat: repeat-x;
+	opacity: 0.8;
+}
+
+.cake-layer-1::after,
+.cake-layer-2::after,
+.cake-layer-3::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: -10px;
+	right: -10px;
+	height: 15px;
+	background: var(--cake-accent);
+	border-radius: 50%;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), inset 0 2px 3px var(--cake-light);
+	filter: blur(1px);
+}
+
+.cake-layer-2::after,
+.cake-layer-3::after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: -5px;
+	right: -5px;
+	height: 20px;
+	background: radial-gradient(circle at 50% 0, var(--cake-light) 20px, transparent 21px);
+	background-size: 40px 20px;
+	background-repeat: repeat-x;
+	z-index: 1;
+	opacity: 0.9;
+}
+
+.cake-layer-1 {
+	bottom: 0;
+	width: 300px;
+	opacity: 1;
+	background: linear-gradient(45deg, var(--cake-primary), var(--cake-accent));
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 -10px 20px -10px var(--cake-dark);
+}
+
+.cake-layer-2 {
+	bottom: 90px;
+	width: 250px;
+	opacity: 0;
+	transform: translateY(-60px);
+	transition: opacity 0.5s ease, transform 0.5s ease;
+	background: linear-gradient(-45deg, var(--cake-secondary), var(--cake-primary));
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 -10px 20px -10px var(--cake-dark);
+}
+
+.cake-layer-3 {
+	bottom: 170px;
+	width: 200px;
+	opacity: 0;
+	transform: translateY(-60px);
+	transition: opacity 0.5s ease, transform 0.5s ease;
+	background: linear-gradient(45deg, var(--cake-accent), var(--cake-secondary));
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 -10px 20px -10px var(--cake-dark);
+}
+
+.sprinkles {
+	position: absolute;
+	top: 10px;
+	left: 0;
+	right: 0;
+	height: 100%;
+	background-image: radial-gradient(circle, var(--cake-light) 1px, transparent 1px), radial-gradient(circle, var(--cake-accent) 1px, transparent 1px), radial-gradient(circle, var(--cake-secondary) 1px, transparent 1px);
+	background-size: 16px 16px, 12px 12px, 8px 8px;
+	background-position: 0 0, 4px 4px, 8px 8px;
+	opacity: 0.6;
+	animation: sparkle 2s infinite alternate;
+}
+
+@keyframes sparkle {
+	0% {
+		opacity: 0.4;
+	}
+	100% {
+		opacity: 0.7;
+	}
+}
+
+/* Frosting swirls */
+.frosting {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 15px;
+	background: radial-gradient(circle at 50% 100%, var(--cake-light) 25%, transparent 25.5%);
+	background-size: 30px 15px;
+	background-repeat: repeat-x;
+	opacity: 0.8;
+	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.cake-candle {
+	position: absolute;
+	bottom: 225px;
+	font-size: 4rem;
+	font-weight: bold;
+	color: var(--cake-accent);
+	opacity: 0;
+	transform: translateY(-50px);
+	text-shadow: 0 0 10px var(--cake-accent), 0 0 20px var(--cake-light), 0 0 30px var(--cake-primary);
+	animation: flicker 1s infinite alternate;
+	position: relative;
+}
+
+/* .cake-candle::before {
+	content: "🕯️";
+	position: absolute;
+	bottom: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 1.5rem;
+	filter: hue-rotate(270deg);
+} */
+
+/* Show animations */
+.show-layer-2 .cake-layer-2,
+.show-layer-3 .cake-layer-3,
+.show-candle .cake-candle {
+	opacity: 1;
+	transform: translateY(0.5rem);
+	transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Message container */
+.message-container {
+	padding: 2rem;
+	margin-left: 2rem;
+	max-width: 500px;
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(var(--cake-primary-rgb), 0.1));
+	border-radius: 1rem;
+	backdrop-filter: blur(8px);
+	box-shadow: 0 4px 15px rgba(var(--cake-primary-rgb), 0.1), inset 0 0 0 1px rgba(var(--cake-primary-rgb), 0.1);
+}
+
+/* Animations */
+@keyframes flicker {
+	0% {
+		opacity: 1;
+		text-shadow: 0 0 10px var(--cake-primary), 0 0 20px var(--cake-accent), 0 0 30px var(--cake-light);
+	}
+	100% {
+		opacity: 0.8;
+		text-shadow: 0 0 5px var(--cake-primary), 0 0 10px var(--cake-accent), 0 0 15px var(--cake-light);
+	}
+}
+
+/* Balloon Animation */
+.balloon {
+	position: fixed;
+	animation: float 15s ease-in-out infinite;
+	opacity: 0.8;
+	color: var(--cake-primary);
+	text-shadow: 0 0 10px var(--cake-light);
+}
+
+@keyframes float {
+	0% {
+		transform: translateY(100vh) rotate(0deg);
+		color: var(--cake-primary);
+	}
+	50% {
+		color: var(--cake-secondary);
+	}
+	100% {
+		transform: translateY(-100vh) rotate(360deg);
+		color: var(--cake-accent);
+	}
+}
+
+/* Interactive elements */
+button,
+.interactive {
+	transition: all 0.3s ease;
+}
+
+button:hover,
+.interactive:hover {
+	color: var(--cake-accent);
+	text-shadow: 0 0 10px var(--cake-light);
+}
+
+/* Enhanced cake layers with purple gradients */
+.cake-layer-1 {
+	background: linear-gradient(45deg, var(--cake-primary), var(--cake-secondary));
+}
+.cake-layer-2 {
+	background: linear-gradient(45deg, var(--cake-secondary), var(--cake-accent));
+}
+.cake-layer-3 {
+	background: linear-gradient(45deg, var(--cake-accent), var(--cake-dark));
+}
+
+/* Purple scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--cake-light);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--cake-primary);
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--cake-accent);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	section {
+		flex-direction: column;
+		gap: 2rem;
+		padding: 2rem 1rem;
+		text-align: center;
+	}
+
+	.cake-container {
+		transform: scale(0.8);
+		margin: 0;
+	}
+
+	.message-container {
+		margin: 0 1rem;
+		padding: 1.5rem;
+		width: calc(100% - 2rem);
+		max-width: none;
+	}
+}
+
+/* Section Layout */
+section {
+	min-height: 100vh;
+	padding: 4rem 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	transform: translateY(50px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+	background: linear-gradient(to right, rgba(var(--cake-primary-rgb, 159, 122, 234), 0.05) 1px, transparent 1px) 0 0, linear-gradient(to bottom, rgba(var(--cake-primary-rgb, 159, 122, 234), 0.05) 1px, transparent 1px) 0 0;
+	background-size: 20px 20px;
+}
+
+section.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.cake-container {
+	position: relative;
+	margin: 2rem;
+	opacity: 1;
+	transform: translateY(30px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.cake-container.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Remove previous section positioning classes as they're no longer needed */
+.section-nav {
+	position: fixed;
+	right: 1rem;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 50;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* Dark mode styles */

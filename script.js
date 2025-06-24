@@ -28,31 +28,49 @@ function updateDots() {
 
 function goToPage(page) {
 	if (page < 1 || page > totalPages) return;
-	cardPages.forEach((p, idx) => {
-		p.classList.remove("active");
-		p.classList.remove("show-layer");
-		p.classList.remove("show-layer-2");
-		p.classList.remove("show-layer-3");
-		p.classList.remove("show-candle");
-	});
-	const current = cardPages[page - 1];
-	current.classList.add("active");
-	// Add .show-layer for entry animation
-	setTimeout(() => {
-		current.classList.add("show-layer");
-		if (page === 3) current.classList.add("show-layer-2");
-		if (page === 4) current.classList.add("show-layer-3");
-		if (page === 5) current.classList.add("show-candle");
-	}, 10);
+	const prev = cardPages[currentPage - 1];
+	const next = cardPages[page - 1];
+	if (prev !== next) {
+		// Animate out previous page
+		prev.classList.remove("active", "show-layer", "show-layer-2", "show-layer-3", "show-candle");
+		prev.classList.add("turning-out");
+		// Only after out animation, show next page
+		setTimeout(() => {
+			prev.classList.remove("turning-out");
+			next.classList.add("turning-in");
+			next.classList.add("active");
+			// Cake layer logic
+			next.classList.add("show-layer");
+			if (page === 3) next.classList.add("show-layer-2");
+			if (page === 4) next.classList.add("show-layer-3");
+			if (page === 5) next.classList.add("show-candle");
+			// Remove turning-in after animation
+			setTimeout(() => {
+				next.classList.remove("turning-in");
+			}, 650);
+		}, 650); // match CSS transition
+	} else {
+		// No animation if same page
+		cardPages.forEach((p, idx) => {
+			p.classList.remove("active", "show-layer", "show-layer-2", "show-layer-3", "show-candle");
+		});
+		next.classList.add("active");
+		setTimeout(() => {
+			next.classList.add("show-layer");
+			if (page === 3) next.classList.add("show-layer-2");
+			if (page === 4) next.classList.add("show-layer-3");
+			if (page === 5) next.classList.add("show-candle");
+		}, 10);
+	}
+	// Confetti logic
+	if (page === totalPages && goToPage._lastConfettiPage !== page) {
+		createConfetti();
+		goToPage._lastConfettiPage = page;
+	} else if (page !== totalPages) {
+		goToPage._lastConfettiPage = null;
+	}
 	currentPage = page;
 	updateDots();
-	// Only trigger confetti if arriving on the last page and it wasn't already the last page
-	if (currentPage === totalPages && !goToPage._confettiFired) {
-		createConfetti();
-		goToPage._confettiFired = true;
-	} else if (currentPage !== totalPages) {
-		goToPage._confettiFired = false;
-	}
 }
 
 // Handle card opening and page turning
@@ -144,13 +162,14 @@ function updateNavDots() {
 
 // Confetti effect
 function createConfetti() {
+	console.log("[Confetti] createConfetti() called");
 	const duration = 15 * 1000;
 	const animationEnd = Date.now() + duration;
 	const defaults = {
 		startVelocity: 30,
 		spread: 360,
 		ticks: 60,
-		zIndex: 0,
+		zIndex: 9999, // Increased z-index so confetti appears above all content
 		shapes: ["star", "circle"],
 		colors: ["#9F7AEA", "#805AD5", "#6B46C1", "#E9D8FD", "#553C9A"],
 	};
@@ -196,10 +215,3 @@ function createConfetti() {
 		);
 	}, 250);
 }
-
-// Trigger confetti on initial load for section 4
-window.addEventListener("load", () => {
-	if (window.innerHeight >= document.documentElement.scrollHeight) {
-		createConfetti();
-	}
-});

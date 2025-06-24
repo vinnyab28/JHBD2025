@@ -502,7 +502,6 @@ section.visible {
 	position: relative;
 	margin: 2rem;
 	opacity: 1;
-	transform: translateY(30px);
 	transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
@@ -707,8 +706,42 @@ section.visible {
 	display: flex;
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 0.5s ease;
+	transition: opacity 0.5s, transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
 	z-index: 1;
+	transform-origin: left center;
+	/* Default: no rotation */
+	transform: rotateY(0deg);
+}
+
+.card-page.turning-out {
+	/* Animate out: turn page to left */
+	opacity: 0;
+	pointer-events: none;
+	z-index: 1;
+	transform: rotateY(-70deg) scale(0.98);
+}
+
+.card-page.turning-in {
+	/* Animate in: turn page from right */
+	opacity: 1;
+	pointer-events: auto;
+	z-index: 2;
+	transform: rotateY(0deg) scale(1);
+}
+
+@media (max-width: 768px) {
+	.card-page,
+	.card-page.turning-in,
+	.card-page.turning-out {
+		/* Use vertical page turn for mobile */
+		transform-origin: top center;
+	}
+	.card-page.turning-out {
+		transform: rotateX(-70deg) scale(0.98);
+	}
+	.card-page.turning-in {
+		transform: rotateX(0deg) scale(1);
+	}
 }
 
 .card-page.active {
